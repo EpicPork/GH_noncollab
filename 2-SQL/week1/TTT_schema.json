@@ -1,0 +1,134 @@
+{
+    "schema": [
+      {
+        "table_name": "Users",
+        "columns": [
+          {
+            "name": "user_id",
+            "data_type": "SERIAL",
+            "constraints": ["PRIMARY KEY"]
+          },
+          {
+            "name": "username",
+            "data_type": "VARCHAR(255)",
+            "constraints": ["UNIQUE", "NOT NULL"]
+          },
+          {
+            "name": "password",
+            "data_type": "VARCHAR(255)",
+            "constraints": ["NOT NULL"]
+          }
+        ]
+      },
+      {
+        "table_name": "Games",
+        "columns": [
+          {
+            "name": "game_id",
+            "data_type": "SERIAL",
+            "constraints": ["PRIMARY KEY"]
+          },
+          {
+            "name": "user_id",
+            "data_type": "INT",
+            "constraints": ["REFERENCES Users(user_id)"]
+          },
+          {
+            "name": "board_size",
+            "data_type": "INT",
+            "constraints": ["NOT NULL"]
+          },
+          {
+            "name": "outcome",
+            "data_type": "VARCHAR(10)"
+          }
+        ]
+      },
+      {
+        "table_name": "Moves",
+        "columns": [
+          {
+            "name": "move_id",
+            "data_type": "SERIAL",
+            "constraints": ["PRIMARY KEY"]
+          },
+          {
+            "name": "game_id",
+            "data_type": "INT",
+            "constraints": ["REFERENCES Games(game_id)"]
+          },
+          {
+            "name": "player",
+            "data_type": "VARCHAR(10)"
+          },
+          {
+            "name": "position_x",
+            "data_type": "INT"
+          },
+          {
+            "name": "position_y",
+            "data_type": "INT"
+          }
+        ]
+      },
+      {
+        "table_name": "Leaderboard",
+        "columns": [
+          {
+            "name": "user_id",
+            "data_type": "INT",
+            "constraints": ["REFERENCES Users(user_id)"]
+          },
+          {
+            "name": "wins",
+            "data_type": "INT"
+          },
+          {
+            "name": "losses",
+            "data_type": "INT"
+          }
+        ]
+      },
+      {
+        "table_name": "PlayerStats",
+        "columns": [
+          {
+            "name": "user_id",
+            "data_type": "INT",
+            "constraints": ["REFERENCES Users(user_id)"]
+          },
+          {
+            "name": "total_wins",
+            "data_type": "INT"
+          },
+          {
+            "name": "total_losses",
+            "data_type": "INT"
+          }
+        ]
+      },
+      {
+        "table_name": "TrainingData",
+        "columns": [
+          {
+            "name": "game_id",
+            "data_type": "INT",
+            "constraints": ["REFERENCES Games(game_id)"]
+          },
+          {
+            "name": "player",
+            "data_type": "VARCHAR(10)"
+          },
+          {
+            "name": "position_x",
+            "data_type": "INT"
+          },
+          {
+            "name": "position_y",
+            "data_type": "INT"
+          }
+        ]
+      }
+    ]
+  }
+  
